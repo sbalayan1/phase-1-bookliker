@@ -72,16 +72,16 @@ function showDetails(book) {
     const description = document.createElement('p')
     const ul = document.createElement('ul')
     const button = document.createElement('button')
+    const foundUser = book.users.find(u => u.username === currentUser.username)
 
     header.textContent = book.title
     image.src = book.img_url
     description.textContent = book.description
     ul.id = "user-likes-list"
-    button.textContent = "Like"
-
+    button.textContent = !foundUser ? "like" : "unlike"
     book.users.forEach(user => {addToLikesList(user, ul)})
+
     button.addEventListener('click', () => {
-        const foundUser = book.users.find(u => u.username === currentUser.username)
         likeUnlikeBook(book, book.users, !foundUser ? "add" : "remove")
         button.textContent = !foundUser ? "unlike" : "like"
 
